@@ -79,19 +79,6 @@ class AnalysisWorker(QThread):
             "4️⃣ Format the output in a structured way with bullet points.\n\n"
         )
 
-        prompt += (
-            "📢 **Final Answer Format:**\n"
-            "**🏆 Best Candidate:** [Candidate Name]\n"
-            "**🔹 Why They Are the Best:**\n"
-            "- ✅ [Key strength 1]\n"
-            "- ✅ [Key strength 2]\n"
-            "- ✅ [Key strength 3]\n"
-            "- ⚠️ [Potential Weakness (if applicable)]\n\n"
-            "**📌 Runner-Ups:**\n"
-            "- [Candidate 2] – [Brief reason]\n"
-            "- [Candidate 3] – [Brief reason]\n"
-        )
-
         # Midway progress update before API call
         self.progress_update.emit(55)
 
@@ -108,7 +95,7 @@ class AnalysisWorker(QThread):
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.1,
-                max_tokens=500,
+                max_tokens=1000,
             )
             ai_result = response.choices[0].message['content']
         except Exception as e:
